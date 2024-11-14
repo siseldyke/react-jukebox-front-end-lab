@@ -1,5 +1,6 @@
 // src/App.jsx
 import {useState, useEffect} from 'react'
+import {useNavigate, Route , Routes} from 'react-router-dom'
 import * as trackService from './services/trackService'
 import TrackList from './components/TrackList';
 import TrackForm from './components/TrackForm';
@@ -10,8 +11,8 @@ const App = () => {
 
   const [trackList, setTrackList] = useState([])
   const [selected, setSelected] = useState(null);
-
-
+  const [isFormOpen, setIsFormOpen] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchTracks = async () => {
@@ -36,35 +37,35 @@ const App = () => {
     setSelected(track)
   }
 
+  const handleFormView = () => {
+    setIsFormOpen(!isFormOpen)
+  }
  
   const handleAddTrack = async(FormData) => {
     try{
       const newTrack = await trackService.create(FormData)
       setTrackList([newTrack, ...trackList]);
-      setIsFormOpen(false)
     } catch (error) {
       console.log(error)
     }
+    
   }
+
+
+
+  
 
   return ( 
     <>
-    <TrackForm handleAddTrack={handleAddTrack}/>
-    <TrackList trackList ={trackList}
-    selected={selected}
-     updateSelected={updateSelected}
-    />
+    <Routes>
+    <Route path ="/tracks/new" element ={<TrackForm handleAddTrack={handleAddTrack}/>}/>
+    <Route path ="/tracks" element = {<TrackList trackList ={trackList} 
+    selected={selected} 
+    updateSelected={updateSelected}/>}/>
     
-    
-    
-    
-    
-    
+    </Routes>
     
     </>
-
-
-
 
   )
 }

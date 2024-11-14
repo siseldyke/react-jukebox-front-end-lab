@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const TrackForm = (props) => {
-
+  const navigate = useNavigate()
   const initialState = {
     title: '',
     artist: ''
@@ -25,13 +28,13 @@ const TrackForm = (props) => {
 
   const handleSubmitForm = (evt) => {
     evt.preventDefault();
-    if (props.selected) {
-      props.handleUpdateTrack(formData, props.selected._id)
-    } else{
+    // if (props.selected) {
+    //   props.handleUpdateTrack(formData, props.selected._id)
+    // } else{
       props.handleAddTrack(formData)
-    }
+    // }
     setFormData({title: '' , artist: '' });
-    
+    navigate('/tracks')
   };
 
   return (

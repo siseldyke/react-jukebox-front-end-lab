@@ -31,4 +31,15 @@ const updateTrack = async (formData , trackId) =>{
 }
 
 
-export { index, create, updateTrack }
+const deleteTrack = async (trackId) => {
+    try {
+      const deletedTrack = await axios.delete(`${BASE_URL}/${trackId}`);
+      console.log(deletedTrack.data)
+      return deletedTrack.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
+export { index, create, updateTrack, deleteTrack }

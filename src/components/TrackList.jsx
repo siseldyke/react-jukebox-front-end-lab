@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 const TrackList = (props) => {
     const tracks = props.trackList.map((track) =>(
          <div>
-         
+         <Link to={'/tracks/new'}><button>New Track </button></Link>
          <li key={track._id}>{track.title}</li>
          <p>{track.artist}</p>
          <button onClick={ () => props.updateSelected(track)}>Update Track</button>
