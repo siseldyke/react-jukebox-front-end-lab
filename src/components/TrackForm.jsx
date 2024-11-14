@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const TrackForm = (props) => {
 
@@ -6,21 +6,29 @@ const TrackForm = (props) => {
     title: '',
     artist: ''
   }
-
-  // formData state to control the form
   const [formData, setFormData] = useState(props.selected ? props.selected : initialState);
 
-  // handleChange function to update formData state
+  useEffect(() => {
+    if (props.selected) {
+      setFormData(props.selected);
+    } else {
+      setFormData(initialState);
+    }
+  }, [props.selected]);
+  
+  
+  
   const handleChange = (evt) => {
-    setFormData({ ...formData, [evt.target.title]: evt.target.value });
+    const {name, value} = evt.target
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmitForm = (evt) => {
     evt.preventDefault();
     if (props.selected) {
-      props.handleUpdatePet(formData, props.selected._id)
+      props.handleUpdateTrack(formData, props.selected._id)
     } else{
-      props.handleAddPet(formData)
+      props.handleAddTrack(formData)
     }
     setFormData({title: '' , artist: '' });
     
@@ -41,7 +49,7 @@ const TrackForm = (props) => {
         <input
           id="artist"
           name="artist"
-          value={formData.age}
+          value={formData.artist}
           onChange={handleChange}
         />
         <button type="submit">{props.selected ? 'Update Track' : 'Add New Track'}</button>

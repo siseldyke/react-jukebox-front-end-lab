@@ -9,7 +9,7 @@ import TrackForm from './components/TrackForm';
 const App = () => {
 
   const [trackList, setTrackList] = useState([])
-
+  const [selected, setSelected] = useState(null);
 
 
 
@@ -32,10 +32,28 @@ const App = () => {
     fetchTracks();
   }, []);
 
+  const updateSelected = (track) =>{
+    setSelected(track)
+  }
+
+ 
+  const handleAddTrack = async(FormData) => {
+    try{
+      const newTrack = await trackService.create(FormData)
+      setTrackList([newTrack, ...trackList]);
+      setIsFormOpen(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return ( 
     <>
-    <TrackList trackList ={trackList}/>
+    <TrackForm handleAddTrack={handleAddTrack}/>
+    <TrackList trackList ={trackList}
+    selected={selected}
+     updateSelected={updateSelected}
+    />
     
     
     
