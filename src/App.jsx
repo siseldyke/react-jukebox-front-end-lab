@@ -1,6 +1,6 @@
 // src/App.jsx
 import {useState, useEffect} from 'react'
-import {useNavigate, Route , Routes} from 'react-router-dom'
+import {useNavigate, Route , Routes, Link} from 'react-router-dom'
 import * as trackService from './services/trackService'
 import TrackList from './components/TrackList';
 import TrackForm from './components/TrackForm';
@@ -57,12 +57,16 @@ const App = () => {
 
   return ( 
     <>
+    
     <Routes>
-    <Route path ="/tracks/new" element ={<TrackForm handleAddTrack={handleAddTrack}/>}/>
+    <Route path ="/tracks/form" element ={<TrackForm handleAddTrack={handleAddTrack}
+    selected={selected} 
+    updateSelected = {updateSelected}/>}/>
     <Route path ="/tracks" element = {<TrackList trackList ={trackList} 
     selected={selected} 
-    updateSelected={updateSelected}/>}/>
-    
+    updateSelected = {updateSelected}
+    />}/>
+    {/* <Route path ="/edit-track/:id" element = {<TrackForm/>}/> */}
     </Routes>
     
     </>

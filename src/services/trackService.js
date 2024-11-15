@@ -22,7 +22,7 @@ const create = async (formData) => {
 }
 
 const updateTrack = async (formData , trackId) =>{
-    try{
+    try{console.log(formData, trackId)
         const res = await axios.put(`${BASE_URL}/${trackId}`, formData)
         return res.data
     } catch (err){

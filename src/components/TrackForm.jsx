@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { updateTrack } from '../services/trackService';
 
 
 
@@ -28,11 +29,13 @@ const TrackForm = (props) => {
 
   const handleSubmitForm = (evt) => {
     evt.preventDefault();
-    // if (props.selected) {
-    //   props.handleUpdateTrack(formData, props.selected._id)
-    // } else{
+    if (props.selected) {
+      updateTrack(formData, props.selected._id)
+      props.selected.title = formData.title
+      props.selected.artist = formData.artist
+    } else{
       props.handleAddTrack(formData)
-    // }
+    }
     setFormData({title: '' , artist: '' });
     navigate('/tracks')
   };
