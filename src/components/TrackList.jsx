@@ -9,7 +9,8 @@ const TrackList = (props) => {
          <li key={track._id}>{track.title}</li>
          <p>{track.artist}</p>
          <Link to='/tracks/form'><button onClick={ () => props.updateSelected(track)}>Update Track</button></Link>
-         
+         <Link to='/tracks/nowPlaying'><button onClick={ () => props.updateSelected(track)}>Play</button></Link>
+         <button onClick={ () => props.handleRemoveTrack(track._id)}>Delete Track</button>
          </div>
         ));
     
