@@ -1,6 +1,6 @@
 // src/App.jsx
 import {useState, useEffect} from 'react'
-import {useNavigate, Route , Routes, Link} from 'react-router-dom'
+import {useNavigate, Route , Routes, Link, Navigate} from 'react-router-dom'
 import * as trackService from './services/trackService'
 import TrackList from './components/TrackList';
 import TrackForm from './components/TrackForm';
@@ -12,6 +12,7 @@ const App = () => {
   const [trackList, setTrackList] = useState([])
   const [selected, setSelected] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false)
+  const [nowPlaying, setNowPlaying] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const App = () => {
     };
 
     fetchTracks();
-  }, []);
+  }, [trackList]);
 
   const updateSelected = (track) =>{
     setSelected(track)
@@ -66,11 +67,21 @@ const App = () => {
     }
   };
   
+  
+
 
   return ( 
     <>
-    
+    {nowPlaying? (
+      <NowPlaying selected={selected}/>) : (<h1>Choose a Track</h1>) }
     <Routes>
+    <Route path='/' element={<TrackList trackList={trackList}
+    selected={selected} 
+    updateSelected = {updateSelected}
+    handleRemoveTrack = {handleRemoveTrack}
+    setNowPlaying = {setNowPlaying}
+    />}/>
+      
     <Route path ="/tracks/form" element ={<TrackForm handleAddTrack={handleAddTrack}
     selected={selected} 
     updateSelected = {updateSelected}/>}/>
@@ -78,8 +89,9 @@ const App = () => {
     selected={selected} 
     updateSelected = {updateSelected}
     handleRemoveTrack = {handleRemoveTrack}
+    setNowPlaying = {setNowPlaying}
     />}/>
-    <Route path ="/tracks/nowPlaying" element ={<NowPlaying selected={selected}/>}/>
+    
     </Routes>
     
     </>
