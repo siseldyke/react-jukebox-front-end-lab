@@ -1,6 +1,3 @@
-
-
-
 const NowPlaying = ({selected}) => {
     return(
     <div>

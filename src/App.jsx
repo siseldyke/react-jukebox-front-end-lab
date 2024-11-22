@@ -1,4 +1,4 @@
-// src/App.jsx
+
 import {useState, useEffect} from 'react'
 import {useNavigate, Route , Routes, Link, Navigate} from 'react-router-dom'
 import * as trackService from './services/trackService'
@@ -32,7 +32,7 @@ const App = () => {
     };
 
     fetchTracks();
-  }, [trackList]);
+  }, []);
 
   const updateSelected = (track) =>{
     setSelected(track)
